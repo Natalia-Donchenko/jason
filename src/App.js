@@ -22,20 +22,24 @@ function App() {
     setEditingUser(null)
  }
    
-  const handleFirstNameChange = (event) => {
-    setEditingUser({...editingUser, firstName: event.target.value});
+  const handleFirstNameChange = (firstName) => {
+    setEditingUser({...editingUser, firstName});
   }
 
-  const handleLastNameChange = (event) => {
-    setEditingUser({...editingUser, lastName: event.target.value});
+  const handleLastNameChange = (lastName) => {
+    setEditingUser({...editingUser, lastName});
   }
 
-  const handleEmailChange = (event) => {
-    setEditingUser({...editingUser, email: event.target.value});
+  const handleEmailChange = (email) => {
+    setEditingUser({...editingUser, email});
   }
 
-  const handleAgeChange = (event) => {
-    setEditingUser({...editingUser, age: event.target.value});
+  const handleAgeChange = (age) => {
+    setEditingUser({...editingUser, age});
+  }
+
+  const handleGenderChange = (gender) => {
+    setEditingUser({...editingUser, gender})
   }
 
   return (
@@ -44,47 +48,90 @@ function App() {
         <div className='wrapper'>
           <div className='form'>
             <h1 className='form__title'>User Editor</h1>
-            <form className='form__editor' editingUser={editingUser} onSubmit={handleUserEdit}>
+            <form 
+              className='form__editor' 
+              // editingUser={editingUser} 
+              onSubmit={handleUserEdit}>
         
               <label className='form__editor-label'>Firts Name*</label>
               <input 
                 className='form__editor_input' 
                 value={editingUser.firstName} 
-                onChange={handleFirstNameChange}
+                onChange={(e) => handleFirstNameChange(e.target.value)}
                 id="firstName" 
                 type="text" 
-                name="first_name">
-              </input>
-
+                name="first_name"
+              />
+              
               <label className='form__editor-label'>Last Name*</label>
               <input 
                 className='form__editor_input' 
                 value={editingUser.lastName} 
-                onChange={handleLastNameChange}
+                onChange={(e) => handleLastNameChange(e.target.value)}
                 id="lastName" 
                 type="text" 
-                name="last_name"> 
-              </input>
-
+                name="last_name"
+              /> 
+              
               <label className='form__editor-label'>Email</label>
               <input 
                 className='form__editor_input' 
                 value={editingUser.email} 
-                onChange={handleEmailChange}
+                onChange={(e) => handleEmailChange(e.target.value)}
                 id="email" 
                 type="email" 
-                name="email">
-              </input>
+                name="email"
+              />
 
               <label className='form__editor-label'>Age</label>
               <input
                 className='form__editor_input'
                 value={editingUser.age}
-                onChange={handleAgeChange}
-                id="age"
+                onChange={(e) => handleAgeChange(e.target.value)}
                 type="number"
-                name="age">
-              </input>
+                name="age"
+                id='age'
+              />
+              
+              <div>
+                <label>Gender</label>
+                <div className='form__editor_gender'>
+                  <label>
+                    <input 
+                      className='form-check-input'
+                      type="radio"
+                      name="gender"
+                      value="male"
+                      onChange={(e) => handleGenderChange(e.target.value)}
+                      checked={editingUser.gender === 'male'}
+                    />
+                    male
+                  </label>
+                  <label>
+                    <input 
+                      className='form-check-input'
+                      type="radio"
+                      name="gender"
+                      value="female"
+                      onChange={(e) => handleGenderChange(e.target.value)}
+                      checked={editingUser.gender === 'female'}
+                    />
+                    female
+                  </label>
+                  <label>
+                    <input 
+                      className='form-check-input'
+                      type="radio"
+                      name="gender"
+                      value="unset"
+                      onChange={(e) => handleGenderChange(e.target.value)}
+                      checked={editingUser.gender === 'unset'}
+                    />
+                    prefer not to respond (unset)
+                  </label>
+                </div>
+              </div>
+   
             </form>
 
             <div className='form__buttons'>

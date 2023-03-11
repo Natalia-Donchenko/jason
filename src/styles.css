@@ -68,6 +68,16 @@ tr {
   font-size: 12px;
 }
 
+.form__editor_gender {
+  display: flex;
+  margin-bottom: 10px;
+  gap: 20px
+}
+
+.form-check-input {
+  margin-right: 5px;
+}
+
 .form__buttons {
   display: flex;
   justify-content: start;

@@ -89,168 +89,194 @@ function App() {
       {editingUser&& (
         <div className='wrapper'>
           <div className='form'>
-            <h1 className='form__title'>User Editor</h1>
+            <h1 className='form-title'>User Editor</h1>
             <form 
-              className='form__editor' 
-              // editingUser={editingUser} 
-              onSubmit={handleUserEdit}>
-        
-              <label className='form__editor-label'>Firts Name*</label>
-              <input 
-                className='form__editor_input' 
-                value={editingUser.firstName} 
-                onChange={(e) => handleFirstNameChange(e.target.value)}
-                id="firstName" 
-                type="text" 
-                name="first_name"
-                
-              />
-              
-              <label className='form__editor-label'>Last Name*</label>
-              <input 
-                className='form__editor_input' 
-                value={editingUser.lastName} 
-                onChange={(e) => handleLastNameChange(e.target.value)}
-                id="lastName" 
-                type="text" 
-                name="last_name"
-              /> 
-              
-              <label className='form__editor-label'>Email</label>
-              <input 
-                className='form__editor_input' 
-                value={editingUser.email} 
-                onChange={(e) => handleEmailChange(e.target.value)}
-                id="email" 
-                type="email" 
-                name="email"
-              />
-
-              <label className='form__editor-label'>Password</label>
-              <input
-                className='form__editor_input'
-                value={editingUser.password}
-                onChange={(e) => handlebPasswordChange(e.target.value)}
-                type='password'
-                name='password'
-              />
-          
-              <label className='form__editor-label'>Age</label>
-              <input
-                className='form__editor_input'
-                value={editingUser.age}
-                onChange={(e) => handleAgeChange(e.target.value)}
-                type="number"
-                name="age"
-                id='age'
-              />
-
-              <div className='form__birthDate'>
-                <label className='form__editor-label'>Birth Date</label>
+              className='row g-3'
+              onSubmit={handleUserEdit}
+            >
+              <div className='col-md-6'>
+                <label className='form-label' htmlFor='firstName'>Firts Name*</label>
                 <input
-                  className='form__editor_input'
+                  id="firstName" 
+                  type="text" 
+                  name="firstName"
+                  className='form-control'
+                  value={editingUser.firstName} 
+                  onChange={(e) => handleFirstNameChange(e.target.value)}
+                />
+              </div>
+              <div className='col-md-6'>
+                <label className='form-label' htmlFor='lastName'>Last Name*</label>
+                <input 
+                  id="lastName" 
+                  type="text" 
+                  name="lastName"
+                  className='form-control'
+                  value={editingUser.lastName} 
+                  onChange={(e) => handleLastNameChange(e.target.value)}
+                />
+              </div>
+              <div className='col-md-6'>
+                <label className='form-label' htmlFor='email'>Email</label>
+                <input
+                  id="email" 
+                  type="email" 
+                  name="email"
+                  className='form-control'
+                  value={editingUser.email} 
+                  onChange={(e) => handleEmailChange(e.target.value)}
+                />
+              </div>
+              <div className='col-md-6'>
+                <label className='form-label' htmlFor='phone'>Phone Number</label>
+                <input
+                  id="phone"
+                  type='tel'
+                  name='phone'
+                  className='form-control'
+                  value={editingUser.phone}
+                  onChange={(e) => handlePhoneChange(e.target.value)} 
+                />
+              </div>
+              <div className='col-12'>
+                <label className='form-label' htmlFor='password'>Password</label>
+                <input
+                  id='password'
+                  type='password'
+                  name='password'
+                  className='form-control'
+                  value={editingUser.password}
+                  onChange={(e) => handlebPasswordChange(e.target.value)}
+                />
+              </div>    
+              <div className='col-md-4'>
+                <label className='form-label' htmlFor='birthDate'>Birth Date</label>
+                <input
+                  id='birthDate'
+                  type="date"
+                  name="birthDate"
+                  className='form-control'
                   value={editingUser.birthDate}
                   onChange={(e) => handlebirthDateChange(e.target.value)}
-                  type="date"
-                  name="age"
                 />
-                <label className='form__editor-label'>Update age?</label>
+              </div>
+              <div className='col-md-2'>
+                <label className='form-label' htmlFor='age'>Age</label>
                 <input
-                  className='form__editor_input'
+                  id='age'
+                  type="number"
+                  name="age"
+                  className='form-control'
+                  value={editingUser.age}
+                  onChange={(e) => handleAgeChange(e.target.value)}
+                />
+              </div>
+              <div className='col-md-3 form-check-reverse'>
+                <label className='form-label' htmlFor='updateAge'>Update age?</label>
+                <input
+                  id='updateAge'
                   type="checkbox"
+                  className='form-check-input'
                   onChange={(e) => handleUpdateAge(e.target.value)}
                 />
               </div>
-              
-              <div>
-                <label className='form__editor-label'>Gender</label>
-                <div className='form__editor_gender'>
-                  <label>
-                    <input 
-                      className='form-check-input'
-                      type="radio"
-                      name="gender"
-                      value="male"
-                      onChange={(e) => handleGenderChange(e.target.value)}
-                      checked={editingUser.gender === 'male'}
-                    />
-                    male
-                  </label>
-                  <label>
-                    <input 
-                      className='form-check-input'
-                      type="radio"
-                      name="gender"
-                      value="female"
-                      onChange={(e) => handleGenderChange(e.target.value)}
-                      checked={editingUser.gender === 'female'}
-                    />
-                    female
-                  </label>
-                  <label>
-                    <input 
-                      className='form-check-input'
-                      type="radio"
-                      name="gender"
-                      value="unset"
-                      onChange={(e) => handleGenderChange(e.target.value)}
-                      checked={editingUser.gender === 'unset'}
-                    />
-                    prefer not to respond (unset)
-                  </label>
-                </div>
+              <div className='col-md-12 hstack gap-3'>
+                <span className='form-label' htmlFor='gender'>Gender</span>
+                  <div className='form-check form-check-inline'>
+                    <label className='form-label'>
+                      <input 
+                        type="radio"
+                        name="gender"
+                        className='form-check-input'
+                        value="male"
+                        onChange={(e) => handleGenderChange(e.target.value)}
+                        checked={editingUser.gender === 'male'}
+                      />
+                      male
+                    </label>
+                  </div>
+                  <div className='form-check form-check-inline'>
+                    <label className='form-label'>
+                      <input 
+                        type="radio"
+                        name="gender"
+                        className='form-check-input'
+                        value="female"
+                        onChange={(e) => handleGenderChange(e.target.value)}
+                        checked={editingUser.gender === 'female'}
+                      />
+                      female
+                    </label>
+                  </div>  
+                  <div className='form-check form-check-inline'>
+                    <label className='form-label'>
+                      <input 
+                        type="radio"
+                        name="gender"
+                        className='form-check-input'
+                        value="unset"
+                        onChange={(e) => handleGenderChange(e.target.value)}
+                        checked={editingUser.gender === 'unset'}
+                      />
+                      prefer not to respond (unset)
+                    </label>
+                  </div>
               </div>
-
-              <div className='form__bloodGroup'>
-                <label className='form__editor-label'>Blood Group</label>
-                <div>
-                  <select 
-                    className='form__editor_input' 
-                    name='blood_group'
-                    value={editingUser.bloodGroup}
-                    onChange={(e) => handlebloodGroupChange(e.target.value)}>
-                      <option value="">{editingUser.bloodGroup}</option>
-                      <option value="A+">A RhD positive (A+)</option>
-                      <option value="A-">A RhD negative (A-)</option>
-                      <option value="B+">B RhD positive (B+)</option>
-                      <option value="B-">B RhD negative (B-)</option>
-                      <option value="0+">O RhD positive (O+)</option>
-                      <option value="0-">O RhD negative (O-)</option>
-                      <option value="AB+">AB RhD positive (AB+)</option>
-                      <option value="AB-">AB RhD negative (AB-)</option>
-                  </select>
-                </div>
-              </div>
-
-              <label className='form__editor-label'>Phone Number</label>
-              <input
-                
-                name='phone'
-                type='tel'
-                value={editingUser.phone}
-                onChange={(e) => handlePhoneChange(e.target.value)}
-                required
-              />
-
-              <label className='form__editor-label'>Hair</label>
-              <div>
+              <div className='col-md-6'>
+                <label className='form-label' htmlFor='colorOfHair'>Color of Hair</label>
                 <select
-                  className='form__editor_input'
+                  id='colorOfHair'
                   name='hair_color'
+                  className='form-select'
                   value={editingUser.hair.color}
-                  onChange={(e) => handleHairColorChange(e.target.value)}> 
-                    <option value="">{editingUser.hair.color}</option>
-                    <option value="Auburn">Auburn</option>
-                    <option value="Black">Black</option>
-                    <option value="Blond">Blond</option>
-                    <option value="Brown">Brown</option>
-                    <option value="Chestnut">Chestnut</option>
-                    <option value="Other">Other</option>
-
+                  onChange={(e) => handleHairColorChange(e.target.value)}
+                > 
+                  <option value="">{editingUser.hair.color}</option>
+                  <option value="Auburn">Auburn</option>
+                  <option value="Black">Black</option>
+                  <option value="Blond">Blond</option>
+                  <option value="Brown">Brown</option>
+                  <option value="Chestnut">Chestnut</option>
+                  <option value="Other">Other</option>
                 </select> 
               </div>
-
-   
+              <div className='col-md-6'>
+                <label className='form-label' htmlFor='typeOfHair'>Type of Hair</label>
+                <select
+                  id='typeOfHair'
+                  name='hair_type'
+                  className='form-select'
+                  value={editingUser.hair.color}
+                  onChange={(e) => handleHairColorChange(e.target.value)}
+                > 
+                  <option value="">{editingUser.hair.type}</option>
+                  <option value="Strands">Strands</option>
+                  <option value="Curly">Curly</option>
+                  <option value="Very curly">Very curly</option>
+                  <option value="Straight">Straight</option>
+                  <option value="CWavy">Wavy</option>
+                </select> 
+              </div>
+              <div className='col-md-6'>
+                <label className='form-label' htmlFor='bloodGroup'>Blood Group</label>
+                <select
+                  id='bloodGroup'
+                  name='blood_group'
+                  className='form-select'
+                  value={editingUser.bloodGroup}
+                  onChange={(e) => handlebloodGroupChange(e.target.value)}  
+                >
+                  <option value="">{editingUser.bloodGroup}</option>
+                  <option value="A+">A RhD positive (A+)</option>
+                  <option value="A-">A RhD negative (A-)</option>
+                  <option value="B+">B RhD positive (B+)</option>
+                  <option value="B-">B RhD negative (B-)</option>
+                  <option value="0+">O RhD positive (O+)</option>
+                  <option value="0-">O RhD negative (O-)</option>
+                  <option value="AB+">AB RhD positive (AB+)</option>
+                  <option value="AB-">AB RhD negative (AB-)</option>
+                </select>
+              </div>
             </form>
 
             <div className='form__buttons'>
@@ -261,14 +287,13 @@ function App() {
                 >
                 Submit
               </button>
-
               <button 
                 className='btn btn-outline-primary' 
                 onClick={() => setEditingUser(null)}>
                 Cansel
               </button>
-              </div>
-          </div>
+            </div>
+          </div> 
         </div>
       )}
       

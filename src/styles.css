@@ -71,7 +71,9 @@ tr {
 .form__editor_gender {
   display: flex;
   margin-bottom: 10px;
-  gap: 20px
+  gap: 20px;
+
+  font-size: 12px;
 }
 
 .form-check-input {
@@ -85,6 +87,23 @@ tr {
  
 }
 
+.form__birthDate {
+  display: flex;
+  align-items: center;
+  gap:  10px;
+}
+
+.form__birthDate .form__editor_input,
+.form__birthDate .form__editor-label {
+  margin-bottom: 0;
+}
+
 .btn {
   width: max-content;
+}
+
+.form__bloodGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

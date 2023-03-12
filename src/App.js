@@ -8,6 +8,14 @@ function App() {
   const[users, setUsers] = useState(userData);
   const[editingUser, setEditingUser] = useState(null);
 
+  // const updateUsersAge = (user) => {
+  //   const userBithday = Date.parse(user.birthDate)
+  //   const today = Date.now()
+  //   user.age = Math.floor((today - userBithday) / 31536000000)
+  // }
+
+ 
+
   const handleUserEdit = (value) => {
     const user = users.find((el) => el.id === +value);
     setEditingUser(user);
@@ -34,13 +42,47 @@ function App() {
     setEditingUser({...editingUser, email});
   }
 
+  const handlebPasswordChange = (password) => {
+    setEditingUser({...editingUser, password})
+  }
+
   const handleAgeChange = (age) => {
+  
     setEditingUser({...editingUser, age});
+  }
+
+  const handlebirthDateChange = (birthDate) => {
+    setEditingUser({...editingUser, birthDate});
+  }
+
+  const handleUpdateAge = () => {
+    const userBithday = Date.parse(editingUser.birthDate)
+    const today = Date.now()
+    editingUser.age = Math.floor((today - userBithday) / 31536000000)
   }
 
   const handleGenderChange = (gender) => {
     setEditingUser({...editingUser, gender})
   }
+
+  const handlePhoneChange = (phone) => {
+    setEditingUser({...editingUser, phone})
+  }
+
+  const handlebloodGroupChange = (bloodGroup) => {
+    setEditingUser({...editingUser, bloodGroup})
+  }
+
+  const handleHairColorChange = (hair, color) => {
+
+    console.log(color)
+    console.log(editingUser.hair['color'])
+
+    setEditingUser({...editingUser, hair, color})
+    console.log({...editingUser, color})
+  }
+
+  
 
   return (
     <div className='container'>
@@ -61,6 +103,7 @@ function App() {
                 id="firstName" 
                 type="text" 
                 name="first_name"
+                
               />
               
               <label className='form__editor-label'>Last Name*</label>
@@ -83,6 +126,15 @@ function App() {
                 name="email"
               />
 
+              <label className='form__editor-label'>Password</label>
+              <input
+                className='form__editor_input'
+                value={editingUser.password}
+                onChange={(e) => handlebPasswordChange(e.target.value)}
+                type='password'
+                name='password'
+              />
+          
               <label className='form__editor-label'>Age</label>
               <input
                 className='form__editor_input'
@@ -92,9 +144,26 @@ function App() {
                 name="age"
                 id='age'
               />
+
+              <div className='form__birthDate'>
+                <label className='form__editor-label'>Birth Date</label>
+                <input
+                  className='form__editor_input'
+                  value={editingUser.birthDate}
+                  onChange={(e) => handlebirthDateChange(e.target.value)}
+                  type="date"
+                  name="age"
+                />
+                <label className='form__editor-label'>Update age?</label>
+                <input
+                  className='form__editor_input'
+                  type="checkbox"
+                  onChange={(e) => handleUpdateAge(e.target.value)}
+                />
+              </div>
               
               <div>
-                <label>Gender</label>
+                <label className='form__editor-label'>Gender</label>
                 <div className='form__editor_gender'>
                   <label>
                     <input 
@@ -131,6 +200,56 @@ function App() {
                   </label>
                 </div>
               </div>
+
+              <div className='form__bloodGroup'>
+                <label className='form__editor-label'>Blood Group</label>
+                <div>
+                  <select 
+                    className='form__editor_input' 
+                    name='blood_group'
+                    value={editingUser.bloodGroup}
+                    onChange={(e) => handlebloodGroupChange(e.target.value)}>
+                      <option value="">{editingUser.bloodGroup}</option>
+                      <option value="A+">A RhD positive (A+)</option>
+                      <option value="A-">A RhD negative (A-)</option>
+                      <option value="B+">B RhD positive (B+)</option>
+                      <option value="B-">B RhD negative (B-)</option>
+                      <option value="0+">O RhD positive (O+)</option>
+                      <option value="0-">O RhD negative (O-)</option>
+                      <option value="AB+">AB RhD positive (AB+)</option>
+                      <option value="AB-">AB RhD negative (AB-)</option>
+                  </select>
+                </div>
+              </div>
+
+              <label className='form__editor-label'>Phone Number</label>
+              <input
+                
+                name='phone'
+                type='tel'
+                value={editingUser.phone}
+                onChange={(e) => handlePhoneChange(e.target.value)}
+                required
+              />
+
+              <label className='form__editor-label'>Hair</label>
+              <div>
+                <select
+                  className='form__editor_input'
+                  name='hair_color'
+                  value={editingUser.hair.color}
+                  onChange={(e) => handleHairColorChange(e.target.value)}> 
+                    <option value="">{editingUser.hair.color}</option>
+                    <option value="Auburn">Auburn</option>
+                    <option value="Black">Black</option>
+                    <option value="Blond">Blond</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Chestnut">Chestnut</option>
+                    <option value="Other">Other</option>
+
+                </select> 
+              </div>
+
    
             </form>
 
@@ -138,7 +257,8 @@ function App() {
               <button 
                 className='btn btn-primary' 
                 type="submit"
-                onClick={handleUserSubmit}>
+                onClick={handleUserSubmit}
+                >
                 Submit
               </button>
 
@@ -160,8 +280,14 @@ function App() {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
+            <th>Password</th>
             <th>Gender</th>
             <th>Age</th>
+            <th>BirthDate</th>
+            <th>Phone Number</th>
+            <th>Blood Group</th>
+            <th>Color of Hair</th>
+            <th>Type of Hair</th>
             <th></th>
           </tr>
         </thead>
@@ -171,8 +297,14 @@ function App() {
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
               <td>{user.email}</td>
+              <td>{user.password}</td>
               <td>{user.gender}</td>
               <td>{user.age}</td>
+              <td>{user.birthDate}</td>
+              <td>{user.phone}</td>
+              <td>{user.bloodGroup}</td>
+              <td>{user.hair.color}</td>
+              <td>{user.hair.type}</td>
               <td>
                 <button 
                   id={user.id} 

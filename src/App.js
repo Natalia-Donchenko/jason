@@ -1,33 +1,45 @@
-import React, { Component } from 'react';
-import { data } from './users-data';
+import React, { useEffect } from 'react';
+// import { data } from './users-data';
 import './styles.css';
 import { useState } from 'react';
 
+import { fetchUsers, saveUser } from './utils/api';
+
 function App() {
-  const userData = deepClone(data.users);
-  const[users, setUsers] = useState(userData);
+
+  // const userData = deepClone(data.users);
+  const[users, setUsers] = useState([]);
   const[editingUser, setEditingUser] = useState(null);
+  const [loading, setLoading] = useState(true)
 
-  // const updateUsersAge = (user) => {
-  //   const userBithday = Date.parse(user.birthDate)
-  //   const today = Date.now()
-  //   user.age = Math.floor((today - userBithday) / 31536000000)
-  // }
-
- 
+  useEffect(() => {
+    fetchUsers()
+      .then(setUsers)
+      .then(() => setLoading(false));
+  }, []);
 
   const handleUserEdit = (value) => {
     const user = users.find((el) => el.id === +value);
     setEditingUser(user);
-  }
+  };
 
   const handleUserSubmit = () => {
-    const editingUserIndex = users.findIndex(user => user.id === editingUser.id);
-    const updatedUsers = [...users];
+    setLoading(true);
 
-    updatedUsers[editingUserIndex]=editingUser;
-    setUsers(updatedUsers);
-    setEditingUser(null)
+    saveUser(editingUser)
+      .then(fetchUsers)
+      .then(setUsers)
+      .then(() => {
+        setEditingUser(null);
+        setLoading(false)
+      })
+
+    // const editingUserIndex = users.findIndex(user => user.id === editingUser.id);
+    // const updatedUsers = [...users];
+
+    // updatedUsers[editingUserIndex]=editingUser;
+    // setUsers(updatedUsers);
+    // setEditingUser(null)
  }
    
   const handleFirstNameChange = (firstName) => {
@@ -82,11 +94,13 @@ function App() {
     console.log({...editingUser, color})
   }
 
-  
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className='container'>
-      {editingUser&& (
+      {editingUser && (
         <div className='wrapper'>
           <div className='form'>
             <h1 className='form-title'>User Editor</h1>
@@ -348,20 +362,20 @@ function App() {
   )
 }
 
-const deepClone = (originalObj) => {
-  if (!originalObj || typeof originalObj !== "object")  { 
-    return originalObj; 
-  }
+// const deepClone = (originalObj) => {
+//   if (!originalObj || typeof originalObj !== "object")  { 
+//     return originalObj; 
+//   }
 
-  const clonedObj = Array.isArray(originalObj) ? [] : {};
+//   const clonedObj = Array.isArray(originalObj) ? [] : {};
 
-  for (const key in originalObj) {
-    const value = originalObj[key];
+//   for (const key in originalObj) {
+//     const value = originalObj[key];
 
-    clonedObj[key] = deepClone(value);
-  }
+//     clonedObj[key] = deepClone(value);
+//   }
 
-  return clonedObj;
-};
+//   return clonedObj;
+// };
 
 export default App;
